@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
-def linux_compile_script(String node_name) { 	
+def linux_compile_script(String node_name) {
+	checkout scm 	
 	bash """
 		gcc -o ${node_name}.out helloworld.c
 	"""
