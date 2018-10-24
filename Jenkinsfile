@@ -7,7 +7,7 @@ def unix_compile_script(node_name) {
 			#!/bin/bash
 			gcc -o ${node_name}.out helloworld.c
 		"""
-		stash name: "build_${node_name}", includes "*.out"
+		stash name: "build_${node_name}", includes: "*.out"
 	}
 }
 
