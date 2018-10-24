@@ -1,5 +1,12 @@
 #!/usr/bin/env groovy
 
+def linux_compile_script(String node_name) { 	
+	bash """
+		gcc -o ${node_name}.out helloworld.c
+	"""
+	stash name: "build_${node_name}", includes "*.out"
+}
+
 timestamps {
 	stage('build') {
 		parallel(
@@ -14,6 +21,20 @@ timestamps {
 					"""
 
 					stash name: "build_win", includes: "*.exe"
+				}
+			}
+
+			'build_linux' : {
+
+				node('linux') {
+					linux_compile_script('linux')
+				}
+			}
+
+			'build_mac' : {
+
+				node('mac-mini') {
+					linux_compile_script('mac')
 				}
 			}
 		)
