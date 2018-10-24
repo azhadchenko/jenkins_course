@@ -8,6 +8,7 @@ def unix_compile_script(node_name) {
 			gcc -o ${node_name}.out helloworld.c
 		"""
 		stash name: "build_${node_name}", includes: "*.out"
+		deleteDir()
 	}
 }
 
@@ -24,6 +25,7 @@ timestamps {
 					"""
 
 					stash name: "build_win", includes: "*.exe"
+					deleteDir()
 				}
 			},
 
@@ -38,6 +40,13 @@ timestamps {
 	}
 
 	stage('store') {
+	    node("master") {
+	        unstash "build_mac"
+	        unstash "build_win"
+	        unstash "build_linux"
+	        archiveArtifacts artifacts: '*'
+	        deleteDir()
+	    }
 	
 	}
 }
