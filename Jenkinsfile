@@ -22,14 +22,14 @@ timestamps {
 
 					stash name: "build_win", includes: "*.exe"
 				}
-			}
+			},
 
 			'build_linux' : {
 
 				node('linux') {
 					linux_compile_script('linux')
 				}
-			}
+			},
 
 			'build_mac' : {
 
