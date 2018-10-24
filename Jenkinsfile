@@ -4,7 +4,7 @@ def unix_compile_script(node_name) {
 	node(node_name) {
 		checkout scm 	
 		sh """
-			#!/bin/bash -le
+			#!/bin/bash
 			gcc -o ${node_name}.out helloworld.c
 		"""
 		stash name: "build_${node_name}", includes "*.out"
