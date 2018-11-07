@@ -1,5 +1,8 @@
 #!/usr/bin/env groovy
 
+@Library('demens')_
+
+
 Boolean _build_mac = true
 try {
 	_build_mac = build_mac.toBoolean()
@@ -22,7 +25,7 @@ try {
 }
 
 
-def unix_compile_script(node_name) {
+def _unix_compile_script(node_name) {
 	node(node_name) {
 		checkout scm 	
 		sh """
@@ -34,7 +37,7 @@ def unix_compile_script(node_name) {
 	}
 }
 
-def win_compile_script() {
+def _win_compile_script() {
     node('windows') {
 		checkout scm
 		String vsvars_bat = 'Microsoft Visual Studio 12.0\\VC\\vcvarsall.bat'
